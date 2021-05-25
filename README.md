@@ -3,7 +3,7 @@
 The purpose of this project was to familiarize us with creating processes, using system calls fork/exec, process communication through named-pipes, use of low-level I/O, signals and bash scripts.
 
 In the framework of this project I implemented a distributed travelMonitor tool that accepts requests from citizens who want to travel to other countries, and checks if they have been appropriately vaccinated, and decides whether a traveler is allowed to enter a country.
-More specifically, I implemented the travelMonitor application which creates a number of monitor processes that, together with the application, answers user questions.
+More specifically, I implemented the travelMonitor application which creates a number of monitor processes that, in cooperation with the application, answers user queries.
 
 ![image](https://user-images.githubusercontent.com/75081526/119462842-d6446180-bd49-11eb-81e7-78078ec8f99e.png)
 
