@@ -1,5 +1,3 @@
-# OBJS 		= $(filter-out Monitor.o, $(wildcard *.o))
-# SOURCE		= $(wildcard *.c)
 PARENTOBJS 	= travelMonitor.o travelMonitorUtil.o myLib.o hashTable.o bloomFilter.o skipList.o hashFunctions.o 
 CHILDOBJS	= Monitor.o monitorUtil.o myLib.o hashTable.o bloomFilter.o skipList.o hashFunctions.o 
 SOURCE		= travelMonitor.c Monitor.c travelMonitorUtil.c myLib.c hashTable.c bloomFilter.c skipList.c hashFunctions.c monitorSignals.c parentSignals.c
@@ -27,23 +25,16 @@ all:	script	\
 	$(OUT)	
 	
 run:
-#	./travelMonitor -m 3 -b 100 -s 1000 -i ../script/input_dir
 	./$(OUT) -m $(nummonitors) -b $(buffersize) -s $(bloomsize) -i $(input_dir)
 
 valgrind:	
-#	valgrind --trace-children=yes --track-fds=yes valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file="valgrind-out.txt" ./$(OUT) -m $(nummonitors) -b $(buffersize) -s $(bloomsize) -i $(input_dir)
-#	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file="valgrind-out.txt"  ./travelMonitor -m 3 -b 1000 -s 1000 -i ../script/input_dir
-#	--trace-children=yes
-#	valgrind --show-leak-kinds=all --trace-children=yes --track-origins=yes --leak-check=full --log-file="valgrind-out1.txt" -v ./$(OUT) -m 1 -b $(buffersize) -s $(bloomsize) -i $(input_dir)
 	valgrind --leak-check=full --show-leak-kinds=all ./$(OUT) -m 1 -b $(buffersize) -s $(bloomsize) -i $(input_dir)
 
 $(OUT): $(PARENTOBJS) 
-#	$(CC) -g -D_XOPEN_SOURCE=700 $(PARENTOBJS) -o $@ -lm 
 	$(CC) -g -D_XOPEN_SOURCE=700 -o $@ parentSignals.c $(PARENTOBJS) -lm
 
 
 Monitor: $(CHILDOBJS) 
-#	$(CC) -g -D_XOPEN_SOURCE=700 $(CHILDOBJS) signals.c -o $@ -lm
 	$(CC) -g -D_XOPEN_SOURCE=700 -o $@ monitorSignals.c $(CHILDOBJS) -lm
 
 travelMonitor.o: travelMonitor.c
@@ -67,17 +58,6 @@ else
 	$(CC) $(FLAGS) Monitor.c  
 endif
 endif
-
-# parentSignals.o: parentSignals.c
-# ifeq	($(debug),2)
-# 	$(CC) $(DEBUGFLAGS) parentSignals.c 2>/dev/null
-# else
-# ifeq	($(debug),1)
-# 	$(CC) $(DEBUGFLAGS) parentSignals.c 
-# else
-# 	$(CC) $(FLAGS) parentSignals.c  
-# endif
-# endif
 
 travelMonitorUtil.o: travelMonitorUtil.c 
 ifeq	($(debug),2)
