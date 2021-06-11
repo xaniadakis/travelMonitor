@@ -14,10 +14,8 @@
 
 void print(Record* temp)
 {
-    //printf("1\n");
     if (temp!=NULL)
         printf("printing table[%d]\n",my_hash(atoi(temp->citizenID)));
-            //printf("1\n");
 
     while (temp != NULL)
     {
@@ -28,8 +26,6 @@ void print(Record* temp)
             printf("\n");
         temp = temp->next;
     }
-        //printf("1\n");
-
 }
 
 Record* insertAt_hashtable(Record** Registry, char *citizenID, char *name, char *surname, char *country, char *age, char *virus, char *vaccinated, char *date)
@@ -42,16 +38,10 @@ Record* insertAt_hashtable(Record** Registry, char *citizenID, char *name, char 
     strcpy(new->name, name);
     new->surname=(char*) malloc(sizeof(char)*(strlen(surname)+1)); 
     strcpy(new->surname, surname);
-    //new->country=(char*) malloc(sizeof(char)*(strlen(country)+1)); 
-    //strcpy(new->country, country);
     new->country=country;  //points at countryData array
     new->age=(char*) malloc(sizeof(char)*(strlen(age)+1)); 
     strcpy(new->age, age);
-    //new->virus=(char*) malloc(sizeof(char)*(strlen(virus)+1)); 
-    //strcpy(new->virus, virus);
     new->virus=virus;    //points at virusData array
-    //new->vaccinated=(char*) malloc(sizeof(char)*(strlen(vaccinated)+1)); 
-    //strcpy(new->vaccinated, vaccinated);
     new->vaccinated=vaccinated;     //points at vacced array
     if(!strcmp(vaccinated, "YES"))
     {
@@ -97,34 +87,13 @@ int exportFrom_hashtable(Record* Registry, Record** NodePointer, char **citizenI
     *NodePointer = temp;
     if(first==1){
         *citizenID=(char*) malloc(sizeof(char)*(strlen(temp->citizenID)+1));
-        //*name=(char*) malloc(sizeof(char)*(strlen(temp->name)+1)); 
-        //*surname=(char*) malloc(sizeof(char)*(strlen(temp->surname)+1)); 
-        //*country=(char*) malloc(sizeof(char)*(strlen(temp->country)+1)); 
-        //*age=(char*) malloc(sizeof(char)*(strlen(temp->age)+1)); 
-        //*virus=(char*) malloc(sizeof(char)*(strlen(temp->virus)+1)); 
-        //*vaccinated=(char*) malloc(sizeof(char)*(strlen(temp->vaccinated)+1)); 
-        //*date=(char*) malloc(sizeof(char)*(strlen(temp->date)+1)); 
     }
     else{
-        *citizenID=(char*) realloc((*citizenID), sizeof(char)*(strlen(temp->citizenID)+1));
-        //*name=(char*) realloc((*name), sizeof(char)*(strlen(temp->name)+1)); 
-        //*surname=(char*) realloc((*surname), sizeof(char)*(strlen(temp->surname)+1)); 
-        //*country=(char*) realloc((*country), sizeof(char)*(strlen(temp->country)+1)); 
-        //*age=(char*) realloc((*age), sizeof(char)*(strlen(temp->age)+1)); 
-        //*virus=(char*) realloc((*virus), sizeof(char)*(strlen(temp->virus)+1)); 
-        //*vaccinated=(char*) realloc((*vaccinated), sizeof(char)*(strlen(temp->vaccinated)+1)); 
-        //*date=(char*) realloc((*date), sizeof(char)*(strlen(temp->date)+1)); 
+        *citizenID=(char*) realloc((*citizenID), sizeof(char)*(strlen(temp->citizenID)+1)); 
     }
     strcpy(*citizenID, temp->citizenID);
-    //strcpy(*name, temp->name);
-    //strcpy(*surname, temp->surname);
-    //strcpy(*country, temp->country);
-    //strcpy(*age, temp->age);
-    //strcpy(*virus, temp->virus);
     *virus=temp->virus;         //we dont malloc and strcpy because this points to virusData array
     *vaccinated=temp->vaccinated;           //we dont malloc and strcpy because this points to vacced array
-    //strcpy(*vaccinated, temp->vaccinated);
-    //strcpy(*date, temp->date);
     return 1;
 }
 
@@ -179,10 +148,7 @@ void free_hashtable(Record *Registry)
         free(temp->citizenID);
         free(temp->name);
         free(temp->surname);
-        //free(temp->country);
         free(temp->age);
-        //free(temp->virus);
-        //free(temp->vaccinated);
         if(!strcmp(temp->vaccinated,"YES"))
             free(temp->date);
         free(temp);
